@@ -32,7 +32,6 @@ std::string LoadShaderText(const std::string& path)
 
 int main(int argc, char** argv)
 {
-	
 	try
 	{
 		graphics::Environment env;
