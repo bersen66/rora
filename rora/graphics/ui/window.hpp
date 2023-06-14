@@ -24,7 +24,7 @@ public:
 	Window(Window&& other) = delete;
 	~Window();
 
-	operator GLFWwindow* () { return window_; }
+	operator GLFWwindow* ();
 
 	void NewFrameImgui();
 

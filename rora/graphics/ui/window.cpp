@@ -1,4 +1,4 @@
-#include <rora/graphics/window.hpp>
+#include <rora/graphics/ui/window.hpp>
 #include <stdexcept>
 #include <cstdio>
 
@@ -44,6 +44,11 @@ void Window::NewFrameImgui()
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
+}
+
+Window::operator GLFWwindow* ()
+{
+	return window_;
 }
 
 void Window::SwapBuffers()

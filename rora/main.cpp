@@ -21,15 +21,6 @@ void process_input(GLFWwindow* window)
 		glfwSetWindowShouldClose(window, true);
 }
 
-std::string LoadShaderText(const std::string& path)
-{
-	std::ifstream in{ path };
-
-	return { std::istreambuf_iterator<char>{ in }, std::istreambuf_iterator<char>{}};
-}
-
-
-
 int main(int argc, char** argv)
 {
 	try
@@ -46,52 +37,42 @@ int main(int argc, char** argv)
 			-0.5f, -0.5f, 0.0f,
 			0.5f, -0.5f, 0.0f,
 			0.0f, 0.5f, 0.0f
-	};
-	 
-	 	unsigned int VBO;
-	 	glGenBuffers(1, &VBO);
-	 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), &vertices, GL_STATIC_DRAW);
-	 
-	 	unsigned int vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-	 	auto vertex_shader_source = LoadShaderText("shaders/vertex.glsl");
-	 	const char* vs = vertex_shader_source.c_str();
-	 	glShaderSource(vertex_shader, 1, &vs, NULL);
-	 	glCompileShader(vertex_shader);
-	 
-	 	unsigned int fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-	 	auto fragment_shader_source = LoadShaderText("shaders/fragment.glsl");
-	 
-	 	const char* fs = fragment_shader_source.c_str();
-	 	glShaderSource(fragment_shader, 1, &fs, NULL);
-	 	glCompileShader(fragment_shader);
-	 
-	 	unsigned int shader_program = glCreateProgram();
-	 	glAttachShader(shader_program, vertex_shader);
-	 	glAttachShader(shader_program, fragment_shader);
-	 	glLinkProgram(shader_program);
-	 	glUseProgram(shader_program);
-	 
-	 	glDeleteShader(vertex_shader); // Нам больше не нужны шейдеры
-	 	glDeleteShader(fragment_shader);
-	 
-	 	unsigned int vao;
-	 	glGenVertexArrays(1, &vao);
-	 	glBindVertexArray(vao);
-	 
-	 	glVertexAttribPointer(/*index=*/0,
-	 			/*size=*/3,
-	 			/*type=*/GL_FLOAT,
-	 			/*enable_normalization=*/GL_FALSE,
-	 			/*offset=*/sizeof(GL_FLOAT) * 3,
-	 			/*pointer?*/(void*)0);
-	 
-	 	glEnableVertexAttribArray(0);
-	 
-	 	std::string shader_src = LoadShaderText("vertex.glsl");
-	 	printf("%s", shader_src.c_str());
-	 
-	 
+		};
+
+		std::vector<float> vv = {
+			-0.5f, -0.5f, 0.0f,
+			0.5f, -0.5f, 0.0f,
+			0.0f, 0.5f, 0.0f
+		} ;
+
+		VertexBuffer VBO;
+		glBindBuffer(GL_ARRAY_BUFFER, VBO.Descriptor());
+		VBO.InsertData(vv);
+
+		graphics::ShaderProgram pg = graphics::PrepareProgram("shaders/vertex.glsl",
+															  "shaders/fragment.glsl");
+		
+
+	 	glUseProgram(pg.Descriptor());
+
+
+		VertexArray VAO;
+		glBindVertexArray(VAO.Descriptor());
+		VAO.ApplyAttributeLayout(
+			AttributeLayout{}
+				.SetLocationIndex(0)
+				.SetAttribType(GL_FLOAT)
+				.SetBufferOffset(0)
+				.NeedNormalization(GL_FALSE)
+				.SetStride(sizeof(GL_FLOAT) * 3)
+				.SetAttributesNumber(3)
+		);
+		glEnableVertexAttribArray(0);
+
+		glBindVertexArray(VAO.Descriptor());	// logic
+	 	glUseProgram(pg.Descriptor());			// logic
+	 	
+
 	 	while (!window.ShouldClose())
 	 	{
 	 		window.PollEvents();
@@ -99,13 +80,12 @@ int main(int argc, char** argv)
 
 			window.ClearScreen();
 	 
-	 		glUseProgram(shader_program);			// logic
-	 		glBindVertexArray(vao);					// logic
+
 	 		glDrawArrays(GL_TRIANGLES, 0, 3);		// logic
 
 	 		window.NewFrameImgui();	
 			ImGui::Begin("FPS");
-				ImGui::Text(std::to_string(ImGui::GetIO().Framerate).c_str());
+				ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
 			ImGui::End();
 	 		window.RenderImgui();
 	 
