@@ -11,7 +11,7 @@ namespace graphics
 
 struct Environment
 {
-	friend class Window;
+public:
 	Environment();
 	~Environment();
 	Environment(const Environment& other) = delete;
@@ -21,6 +21,8 @@ struct Environment
 
 	void SwapInterval(int interval);
 	void SelectContext(GLFWwindow* window);
+public:
+	GLFWmonitor* primary_monitor;
 };
 
 } // namespace graphics

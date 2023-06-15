@@ -11,6 +11,8 @@
 
 #include <rora/graphics/environment.hpp>
 
+#include <glm/vec4.hpp>
+
 
 namespace graphics
 {
@@ -37,6 +39,13 @@ public:
 	void PollEvents();
 
 	void ClearScreen();
+
+	void BackgroundColor(const ::glm::vec4& color);
+
+	void SetFullScreenMode(bool flag);
+
+	bool InFullScreenMode() const;
+
 private:
 	GLFWwindow* ConstructWindow(Environment& env, int width, int height, const std::string& title);
 
@@ -49,6 +58,8 @@ private:
 	int width_;
 	int height_;
 	GLFWwindow* window_;
+	::glm::vec4 bg_color_;
+	bool in_fullscreen_;
 };
 
 } // namespace graphics

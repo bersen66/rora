@@ -11,6 +11,11 @@ Environment::Environment()
 	{
 		throw std::runtime_error{"Environment creation failed"};
 	}
+	primary_monitor = glfwGetPrimaryMonitor();
+	if (primary_monitor == NULL) 
+	{
+		throw std::runtime_error("Monitor not created");
+	}
 }
 
 Environment::~Environment()
@@ -32,8 +37,6 @@ void Environment::SelectContext(GLFWwindow* window)
 	{
 		throw std::runtime_error("Glad not loaded!");
 	}
-
-
 }
 
 } // namespace graphics

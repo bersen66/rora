@@ -26,4 +26,5 @@ target_link_libraries(
 	graphics
 	glad::glad
     glfw
+	glm::glm
 )

@@ -1,7 +1,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-
+#include <thread>
 
 #include <string>
 #include <iostream>
@@ -15,11 +15,20 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
-void process_input(GLFWwindow* window)
+
+
+void ProcessInput(graphics::Window& window)
 {
+	
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
+	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+	{
+		window.SetFullScreenMode(!window.InFullScreenMode());
+	}
+		
 }
+
 
 int main(int argc, char** argv)
 {
@@ -27,8 +36,10 @@ int main(int argc, char** argv)
 	{
 		graphics::Environment env;
 		graphics::Window window(env, /*wd=*/800, /*hg=*/600, /*title=*/"Rora");
+		window.SetFullScreenMode(false);
 		env.SwapInterval(/*interval=*/0);
-	 
+
+
 	 	glViewport(0, 0, 800, 600);
 	 
 	 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
@@ -73,10 +84,12 @@ int main(int argc, char** argv)
 	 	glUseProgram(pg.Descriptor());			// logic
 	 	
 
+
+
 	 	while (!window.ShouldClose())
 	 	{
 	 		window.PollEvents();
-	 		process_input(window);
+			ProcessInput(window);
 
 			window.ClearScreen();
 	 
