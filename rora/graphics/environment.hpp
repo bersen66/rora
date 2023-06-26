@@ -3,7 +3,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include <rora/graphics/rendering/vertex_array.hpp>
+#include <rora/graphics/rendering/rendering.hpp>
 
 namespace graphics
 {
@@ -21,7 +21,7 @@ public:
 	void SwapInterval(int interval);
 	void SelectContext(GLFWwindow* window);
 
-
+	void Plug(const ShaderProgram& program);
 	void Plug(const VertexArray& vao);
 	
 public:

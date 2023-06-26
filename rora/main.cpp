@@ -15,14 +15,12 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 
 void ProcessInput(graphics::Window& window)
 {
-	
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
 		window.SetFullScreenMode(!window.InFullScreenMode());
-	}
-		
+	}	
 }
 
 int main(int argc, char** argv)
@@ -40,7 +38,7 @@ int main(int argc, char** argv)
 		glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 		std::vector<float> vv = {
-			// positions         // colors
+			// positions           // colors
 			 0.5f,   0.5f,  0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
 			 0.5f,   -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
 			 -0.5f,  -0.5f, 0.0f,  0.0f, 0.0f, 1.0f,   // top 
@@ -61,10 +59,11 @@ int main(int argc, char** argv)
 		vao.LoadVertexBufferData(vv.data(), sizeof(float) * vv.size());
 		vao.LoadIndexBufferData(indicies.data(), sizeof(unsigned int) * indicies.size());
 		
-		graphics::ShaderProgram pg = graphics::PrepareProgram("shaders/vertex.glsl",
-															  "shaders/fragment.glsl");
-		glUseProgram(pg.Descriptor());
-
+		graphics::ShaderProgram pg = graphics::PrepareProgram("resources/shaders/vertex.glsl",
+															  "resources/shaders/fragment.glsl");
+		
+		env.Plug(pg);
+		env.Plug(vao);
 
 	 	while (!window.ShouldClose())
 	 	{
@@ -73,7 +72,7 @@ int main(int argc, char** argv)
 
 			window.ClearScreen();
 	 
-			env.Plug(vao);
+			
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 	 		window.NewFrameImgui();	

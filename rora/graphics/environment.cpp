@@ -39,14 +39,17 @@ void Environment::SelectContext(GLFWwindow* window)
 	}
 }
 
+void Environment::Plug(const ShaderProgram& program)
+{
+	glUseProgram(program.Descriptor());
+}
+
 void Environment::Plug(const VertexArray& vao)
 {	
 	glBindVertexArray(vao.vao_descriptor_);
 	glBindBuffer(GL_ARRAY_BUFFER, vao.vbo_descriptor_);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vao.ebo_descriptor_);
 }
-
-
 
 } // namespace graphics
 

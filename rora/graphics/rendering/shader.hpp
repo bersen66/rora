@@ -96,7 +96,7 @@ public:
 		return *this;
 	}
 
-	GLuint Descriptor();
+	GLuint Descriptor() const;
 
 	~ShaderProgram();
 

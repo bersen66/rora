@@ -12,7 +12,6 @@ add_library(
 	rendering/shader.cpp
 	rendering/details/casts.hpp
 	rendering/details/bytes.hpp
-	
     rendering/vertex_array.cpp
 	rendering/vertex_array.hpp
 )

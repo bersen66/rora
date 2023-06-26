@@ -11,7 +11,7 @@ ShaderProgram::ShaderProgram()
 {}
 
 
-GLuint ShaderProgram::Descriptor()
+GLuint ShaderProgram::Descriptor() const
 {
 	return descriptor_;
 }

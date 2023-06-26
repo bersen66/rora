@@ -9,3 +9,5 @@ target_link_libraries(
         graphics
         imgui::imgui
 )
+
+add_dependencies(rora copy_resources)

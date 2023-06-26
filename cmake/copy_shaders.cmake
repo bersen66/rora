@@ -1,1 +1,0 @@
-file(COPY shaders DESTINATION ${CMAKE_BINARY_DIR}/rora/)
