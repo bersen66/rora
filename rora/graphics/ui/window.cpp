@@ -105,7 +105,7 @@ void Window::SetFullScreenMode(bool flag)
 	}
 	else
 	{
-		glfwSetWindowMonitor(window_, nullptr, 200, 200, width_, height_, GLFW_DONT_CARE);
+		glfwSetWindowMonitor(window_, nullptr,  /*xpos*/200,  /*xpos*/200, width_, height_, GLFW_DONT_CARE);
 	}
 	in_fullscreen_ = flag;
 }
@@ -114,6 +114,7 @@ bool Window::InFullScreenMode() const
 {
 	return in_fullscreen_;
 }
+
 
 GLFWwindow* Window::ConstructWindow(Environment& env, int width, int height, const std::string& title)
 {

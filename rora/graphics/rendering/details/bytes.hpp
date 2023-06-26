@@ -4,6 +4,10 @@
 #include <cstdint>
 #include <vector>
 
+
+namespace graphics::details
+{
+
 template <typename T>
 size_t BytesIn(const std::vector<T>& value) {
     return sizeof(T) * value.size();
@@ -14,3 +18,4 @@ size_t BytesIn(const std::array<T, len>& value) {
     return sizeof(T) * len;
 }
 
+} // namespace graphics::details

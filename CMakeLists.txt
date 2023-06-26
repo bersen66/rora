@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.25)
 project(rora)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 include(cmake/copy_shaders.cmake)
 include(cmake/setup_glad.cmake)

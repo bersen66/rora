@@ -1,13 +1,12 @@
 #pragma once
 
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <rora/graphics/rendering/vertex_array.hpp>
+
 namespace graphics
 {
-
-
 
 struct Environment
 {
@@ -21,6 +20,10 @@ public:
 
 	void SwapInterval(int interval);
 	void SelectContext(GLFWwindow* window);
+
+
+	void Plug(const VertexArray& vao);
+	
 public:
 	GLFWmonitor* primary_monitor;
 };
