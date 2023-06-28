@@ -1,6 +1,6 @@
 add_subdirectory(graphics)
 
-add_executable(rora main.cpp)
+add_executable(rora main.cpp application.cpp)
 
 target_link_libraries(
         rora
